@@ -1,4 +1,5 @@
 import 'package:chatsapp/presentation/controllers/home_controller.dart';
+import 'package:chatsapp/presentation/screens/messaging_screen.dart';
 import 'package:chatsapp/presentation/widgets/chats/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,10 +17,13 @@ class ConversationList extends StatelessWidget {
           itemBuilder: (context, index) {
             if(index==0){
               return const Tags();
-            }{
+            }
+            else{
               return InkWell(
                 onTap: () {
-
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    Get.to(() => const MessagingScreen());
+                  });
                 },
                 child: ListTile(
                   contentPadding:

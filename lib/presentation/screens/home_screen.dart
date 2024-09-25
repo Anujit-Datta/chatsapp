@@ -15,29 +15,25 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar(),
-      body: PageView(
-        onPageChanged: (index) {
-          Get.find<HomeController>().updateBnbIndex(index);
-        },
-        children: [
-          const ConversationList(),
-          ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return const ListTile(
-                leading: CircleAvatar(
-                  radius: 24,
-                  backgroundImage: NetworkImage('https://picsum.photos/200'),
-                ),
-                title: Text('User Name'),
-                subtitle: Text('Last message'),
-                trailing: Text('12:00'),
-              );
-            },
-          ),
-          Text(' '),
-          Text(' '),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: PageView(
+          onPageChanged: (index) {
+            Get.find<HomeController>().updateBnbIndex(index);
+          },
+          children: const [
+            ConversationList(),
+            Center(
+              child: Text('Updates'),
+            ),
+            Center(
+              child: Text('Communities'),
+            ),
+            Center(
+              child: Text('Calls'),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNavBar(),
     );

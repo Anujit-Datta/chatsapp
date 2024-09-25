@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../camera_button.dart';
+import '../options_button.dart';
+import '../search_button.dart';
+
 AppBar appbar() {
   return AppBar(
-    titleSpacing: 8,
+    titleSpacing: 12,
     title: const Text(
       'ChatsApp',
       style: TextStyle(
@@ -11,19 +15,13 @@ AppBar appbar() {
         fontSize: 25,
       ),
     ),
-    actions: [
-      IconButton(
-        icon: const Icon(Icons.camera_alt_outlined),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {},
-      ),
-      IconButton(
-        icon: const Icon(Icons.more_vert),
-        onPressed: () {},
-      ),
+    actions: const [
+      CameraButton(),
+      SearchButton(),
+      OptionsButton(),
     ],
   );
 }
+
+
+

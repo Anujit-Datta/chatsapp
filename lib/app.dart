@@ -22,45 +22,65 @@ class ChatsApp extends StatelessWidget {
         navigationBarTheme: const NavigationBarThemeData(
           backgroundColor: AppColors.background,
           surfaceTintColor: Colors.transparent,
-          overlayColor: MaterialStatePropertyAll(Colors.transparent),
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
           shadowColor: Colors.transparent,
           indicatorColor: AppColors.accent,
-          iconTheme: MaterialStatePropertyAll(IconThemeData(color: Colors.white)),
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(color: Colors.white)),
+          iconTheme: WidgetStatePropertyAll(IconThemeData(color: Colors.white)),
+          labelTextStyle: WidgetStatePropertyAll(TextStyle(color: Colors.white)),
         ),
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
               const EdgeInsets.all(5),
             ),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(0, 0)),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white70),
-            overlayColor: MaterialStateProperty.all<Color>(Colors.white12),
+            minimumSize: WidgetStateProperty.all<Size>(const Size(0, 0)),
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.white70),
+            overlayColor: WidgetStateProperty.all<Color>(Colors.white12),
           ),
         ),
-        textTheme: const TextTheme(
-          titleMedium: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-          labelMedium: TextStyle(
-            color: Colors.white24,
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-          ),
-          bodyMedium: TextStyle(
-            color: Colors.white24,
-            fontSize: 13,
-            fontWeight: FontWeight.w400,
-          ),
-          bodySmall: TextStyle(
-            color: Colors.white24,
-            fontSize: 11,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        textTheme: textTheme(),
       ),
     );
+  }
+
+  TextTheme textTheme() {
+    return const TextTheme(
+        titleMedium: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        //titleSmall: ,
+        labelMedium: TextStyle(
+          color: Colors.white24,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+        bodyMedium: TextStyle(
+          color: Colors.white24,
+          fontSize: 13,
+          fontWeight: FontWeight.w400,
+        ),
+        bodySmall: TextStyle(
+          color: Colors.white24,
+          fontSize: 11,
+          fontWeight: FontWeight.w400,
+        ),
+      displayLarge: TextStyle(
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+      ),
+      displayMedium: TextStyle(
+        color: Colors.white,
+        fontSize: 13,
+        fontWeight: FontWeight.w400,
+      ),
+      displaySmall: TextStyle(
+        color: Colors.white,
+        fontSize: 11,
+        fontWeight: FontWeight.w300,
+      ),
+      );
   }
 }

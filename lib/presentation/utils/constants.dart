@@ -1,5 +1,5 @@
 
-
+String dummyImage='https://picsum.photos/200';
 
 List<Map<String, String>> all = [
   {
