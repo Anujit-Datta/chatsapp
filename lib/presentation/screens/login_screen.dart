@@ -1,4 +1,5 @@
 import 'package:chatsapp/presentation/controllers/login_controller.dart';
+import 'package:chatsapp/presentation/utils/validations.dart';
 import 'package:chatsapp/presentation/widgets/login/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -114,6 +115,9 @@ class LoginScreen extends StatelessWidget {
         color: Colors.white70,
       ),
       obscureText: ctrl.passObscure,
+      validator: (value) {
+        return passwordValidation(value);
+      },
     );
   }
 
@@ -147,6 +151,9 @@ class LoginScreen extends StatelessWidget {
           color: ctrl.emailFocus ? AppColors.primary : AppColors.accent,
         ),
       ),
+      validator: (value) {
+        return emailValidation(value);
+      },
     );
   }
 }

@@ -16,10 +16,12 @@ class HomeController extends GetxController {
     update();
   }
 
-  List<List> conversations = [
+  List<List> conversationsTags = [
     all,
     unread,
     fev,
     groups,
   ];
+
+
 }

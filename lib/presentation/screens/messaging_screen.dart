@@ -2,6 +2,10 @@ import 'package:chatsapp/presentation/utils/app_colors.dart';
 import 'package:chatsapp/presentation/widgets/messaging/appbar.dart';
 import 'package:chatsapp/presentation/widgets/messaging/background.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controllers/messages_controller.dart';
+import '../controllers/user_controller.dart';
 
 class MessagingScreen extends StatelessWidget {
   const MessagingScreen({super.key});
@@ -13,7 +17,7 @@ class MessagingScreen extends StatelessWidget {
       body: Background(
         child: Column(
           children: [
-            const Expanded(child: Center()),
+            const MessagesSection(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.max,
@@ -29,7 +33,7 @@ class MessagingScreen extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const ImojiButton(),
+                        const EmojiButton(),
                         messageInputField(),
                         const AttachmentButton(),
                         const CameraButton(),
@@ -46,16 +50,13 @@ class MessagingScreen extends StatelessWidget {
     );
   }
 
-  Expanded messageInputField() {
+  Widget messageInputField() {
     return const Expanded(
       child: TextField(
         decoration: InputDecoration(
           focusColor: Colors.white,
           hintText: 'Message',
-          hintStyle: TextStyle(
-            color: Colors.white24,
-            fontSize: 16
-          ),
+          hintStyle: TextStyle(color: Colors.white24, fontSize: 16),
           border: InputBorder.none,
         ),
         maxLines: 10,
@@ -80,6 +81,77 @@ class MessagingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MessagesSection extends StatefulWidget {
+  const MessagesSection({
+    super.key,
+  });
+
+  @override
+  State<MessagesSection> createState() => _MessagesSectionState();
+}
+
+class _MessagesSectionState extends State<MessagesSection> {
+  @override
+  void initState() {
+    super.initState();
+    Get.find<MessagesController>().loadMessages(
+      chatId: 'b0b6f02b-cfb7-48b8-976f-392e6ecae116',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 4, right: 4, top: 12, bottom: 8),
+        child: GetBuilder<MessagesController>(builder: (ctrl) {
+          return ListView.separated(
+            itemBuilder: (context, index) {
+              return Row(
+                mainAxisAlignment:
+                    ctrl.messageHolder.messages[index].senderUserId! ==
+                            UserController.currentUser.userId
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ctrl.messageHolder.messages[index].senderUserId! ==
+                              UserController.currentUser.userId
+                          ? AppColors.accent
+                          : AppColors.messageBG,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      ctrl.messageHolder.messages[index].content ?? '',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(height: 1),
+            itemCount: ctrl.messageHolder.messages.length,
+            reverse: true,
+          );
+        }),
+      ),
+    );
+  }
+
+  @override
+  dispose() {
+    Get.find<MessagesController>().stopLoadingMessages();
+    super.dispose();
   }
 }
 
@@ -117,8 +189,8 @@ class AttachmentButton extends StatelessWidget {
   }
 }
 
-class ImojiButton extends StatelessWidget {
-  const ImojiButton({
+class EmojiButton extends StatelessWidget {
+  const EmojiButton({
     super.key,
   });
 

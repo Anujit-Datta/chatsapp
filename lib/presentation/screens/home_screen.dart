@@ -1,3 +1,4 @@
+import 'package:chatsapp/presentation/controllers/chats_list_controller.dart';
 import 'package:chatsapp/presentation/controllers/home_controller.dart';
 import 'package:chatsapp/presentation/utils/app_colors.dart';
 import 'package:chatsapp/presentation/widgets/chats/tag.dart';
@@ -8,9 +9,19 @@ import '../widgets/home/appbar.dart';
 import '../widgets/home/bottom_nav_bar.dart';
 import '../widgets/home/conversations_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Get.find<ChatsListController>().loadConversationList();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

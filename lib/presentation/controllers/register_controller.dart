@@ -11,21 +11,24 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../data/models/user_model.dart';
 
-class LoginController extends GetxController {
+class RegisterController extends GetxController {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void login() async{
+  void register() async{
     if(!formKey.currentState!.validate()) return;
     bool isSuccess=false;
-    EasyLoading.show(status: 'Logging in...',dismissOnTap: false,maskType: EasyLoadingMaskType.black);
+    EasyLoading.show(status: 'Opening Account...',dismissOnTap: false,maskType: EasyLoadingMaskType.black);
     try{
       NetworkResponse response = await NetworkCaller.postRequest(
-        url: Urls.login,
+        url: Urls.register,
         body: {
-          'email': emailController.text,
-          'password': passwordController.text,
+          'name': nameController.text.trim(),
+          'email': emailController.text.trim(),
+          'password': passwordController.text.trim(),
         },
       );
       if(response.isSuccess){
@@ -49,15 +52,19 @@ class LoginController extends GetxController {
   }
 
 
-  bool passObscure = true;
-  void toggleObscureness() {
-    passObscure = !passObscure;
+  bool nameFocus = false;
+  void nameIconActive(bool value) {
+    nameFocus = value;
     update();
   }
-
   bool passFocus = false;
   void passIconActive(bool value) {
     passFocus = value;
+    update();
+  }
+  bool passFocus2 = false;
+  void passIconActive2(bool value) {
+    passFocus2 = value;
     update();
   }
 
@@ -65,5 +72,18 @@ class LoginController extends GetxController {
   void emailIconActive(bool value) {
     emailFocus = value;
     update();
+  }
+
+
+
+  confirmPasswordValidation(String? value) {
+    if(value == null || value.trim().isEmpty) {
+      return 'Provide a password';
+    }else if(passwordController.text.trim()!= confirmPasswordController.text.trim()){
+      return 'Passwords do not match';
+    }else if(value.trim().length < 6){
+      return 'minimum 6 characters';
+    }
+    return null;
   }
 }

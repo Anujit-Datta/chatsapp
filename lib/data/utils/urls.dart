@@ -10,4 +10,6 @@ class Urls{
   static const String createChat = "$_baseUrl/chat/create";
 
   //messages:
+  static String getMessages(String chatId) => "$_baseUrl/message?chatId=$chatId";
+  static const String sendMessage = "$_baseUrl/message/send";
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:chatsapp/data/middlewares/user_auth_controller.dart';
+import 'package:chatsapp/presentation/utils/constants.dart';
 // import 'package:get/get.dart' as getx;
 import 'package:http/http.dart';
 
@@ -11,12 +12,13 @@ class NetworkCaller{
     try{
       log(url);
       final Response response = await get(Uri.parse(url),headers: {
-        'token' : AuthController.accessToken
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $tokenAbcd3',
       });
       log(response.statusCode.toString());
       log(response.body);
+      final decodedResponse=jsonDecode(response.body);
       if(response.statusCode==200){
-        final decodedResponse=jsonDecode(response.body);
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: true,
@@ -27,11 +29,13 @@ class NetworkCaller{
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
+          errorMessage: decodedResponse["message"],
         );
       }else{
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
+          errorMessage: decodedResponse["message"],
         );
       }
     }catch(error){
@@ -61,8 +65,8 @@ class NetworkCaller{
       );
       log(response.statusCode.toString());
       log(response.body);
+      final decodedResponse=jsonDecode(response.body);
       if(response.statusCode==200){
-        final decodedResponse=jsonDecode(response.body);
         log(decodedResponse['data'].toString());
         return NetworkResponse(
           statusCode: response.statusCode,
@@ -74,11 +78,13 @@ class NetworkCaller{
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
+          errorMessage: decodedResponse["message"],
         );
       }else{
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
+          errorMessage: decodedResponse["message"],
         );
       }
     }catch(error){

@@ -1,6 +1,7 @@
 import 'package:chatsapp/controller_binder.dart';
 import 'package:chatsapp/presentation/screens/home_screen.dart';
 import 'package:chatsapp/presentation/screens/login_screen.dart';
+import 'package:chatsapp/presentation/screens/register_screen.dart';
 import 'package:chatsapp/presentation/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,7 +14,7 @@ class ChatsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'ChatsApp',
-      home: const LoginScreen(),
+      home: const HomeScreen(),
       builder: EasyLoading.init(),
       initialBinding: ControllerBinders(),
       theme: ThemeData(
